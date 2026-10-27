@@ -1,0 +1,5 @@
+Barlow and Barlow Condensed (Jeremy Tribby), IBM Plex Mono (IBM), Fraunces (Undercase Type: Phaedra Charles and
+Flavia Zimbardi), Heebo (Oded Ezer) and Frank Ruhl Libre (Yanek Iontef) are licensed under the SIL Open Font License 1.1
+(https://openfontlicense.org). The woff2 subsets here are the Latin (and, for Fraunces, Latin Extended; for Heebo and
+Frank Ruhl Libre, Hebrew) subsets served by Google Fonts, copied unchanged so the hosted page does not contact a third
+party. The font software is not sold; it is served with the page only.

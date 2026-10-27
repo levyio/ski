@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>SkiScanner replies</title>
+<style>@font-face{font-family:"Barlow";font-weight:400;font-style:normal;font-display:swap;src:url(fonts/barlow-400.woff2) format("woff2")}@font-face{font-family:"Barlow";font-weight:600;font-style:normal;font-display:swap;src:url(fonts/barlow-600.woff2) format("woff2")}@font-face{font-family:"Barlow Condensed";font-weight:700;font-style:normal;font-display:swap;src:url(fonts/barlow-condensed-700.woff2) format("woff2")}@font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:swap;src:url(fonts/ibm-plex-mono-500.woff2) format("woff2")}@font-face{font-family:"Fraunces";font-weight:600;font-style:normal;font-display:swap;src:url(fonts/fraunces-600.woff2) format("woff2")}@font-face{font-family:"Fraunces";font-weight:600;font-style:normal;font-display:swap;src:url(fonts/fraunces-600-ext.woff2) format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:"Heebo";font-weight:400;font-style:normal;font-display:swap;src:url(fonts/heebo-400-hebrew.woff2) format("woff2");unicode-range:U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F}@font-face{font-family:"Heebo";font-weight:600;font-style:normal;font-display:swap;src:url(fonts/heebo-600-hebrew.woff2) format("woff2");unicode-range:U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F}@font-face{font-family:"Frank Ruhl Libre";font-weight:700;font-style:normal;font-display:swap;src:url(fonts/frank-ruhl-libre-700-hebrew.woff2) format("woff2");unicode-range:U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F}</style>
+<style>
+:root{--bg:#eef3f6;--panel:#fff;--ink:#0f2230;--muted:#557083;--line:#cfdbe3;--blue:#1f63c6;--red:#c8323a;--ok:#1d7a4f;--snow:#e6f0f7;
+--display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;--body:"Barlow",system-ui,-apple-system,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1620;--panel:#122230;--ink:#e8f1f7;--muted:#93aabb;--line:#25394a;--blue:#6aa6ff;--red:#ff6b72;--ok:#5ad19b;--snow:#16293a;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 var(--body);padding:12px max(16px,env(safe-area-inset-right,0px)) 48px max(16px,env(safe-area-inset-left,0px))}
+.wrap{max-width:760px;margin:0 auto;display:grid;gap:14px}
+h1{font:700 2.4rem/1 var(--display);margin:0}h1 span{color:var(--blue)}
+h2{font:700 1.4rem/1.1 var(--display);margin:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px;display:grid;gap:10px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.stat b{display:block;font:700 1.7rem/1.05 var(--display)}.stat span{color:var(--muted);font-size:.85rem}
+.muted{color:var(--muted);font-size:.88rem}
+.pick{display:grid;gap:4px;padding:10px 0;border-top:1px solid var(--line)}
+.pick:first-of-type{border-top:0}
+.pick .n{font:700 1.2rem/1.1 var(--display)}
+.pick .n b{color:var(--red);margin-right:8px}
+.msg{padding:10px 0;border-top:1px solid var(--line);display:grid;gap:3px}
+.msg:first-of-type{border-top:0}
+.who{font-weight:600}.when{color:var(--muted);font:500 .78rem var(--mono)}
+.err{color:var(--red);font-weight:600}
+button{font:700 1rem var(--display);letter-spacing:.03em;background:var(--ink);color:var(--bg);border:0;border-radius:10px;padding:10px 16px;min-height:44px;cursor:pointer;justify-self:start}
+input{font:500 1rem var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px;min-height:44px;width:100%}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Ski<span>Scanner</span> replies</h1>
+  <div id="out" class="card"><span class="muted">Loading…</span></div>
+</div>
+<script type="application/json" id="cfg">{}</script>
+<script>
+const CFG = JSON.parse(document.getElementById('cfg').textContent)
+const out = document.getElementById('out')
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e }
+const fmt = (iso) => new Date(iso).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+const trip = (t) => t && t.start ? `${t.start}, ${t.nights} nights, ${t.adults} adults${t.kids && t.kids.length ? ' + ' + t.kids.length + ' children' : ''}` : ''
+function keyFromHash() { const m = /[#&]k=([^&]+)/.exec(location.hash); return m ? decodeURIComponent(m[1]) : '' }
+async function load(key) {
+  out.innerHTML = ''
+  if (!CFG.url || !CFG.key) { out.append(el('p', 'err', 'This copy of the page has no feedback store configured.')); return }
+  if (!key) { askKey('Open this page from the private link you were given (it ends in #k=…).'); return }
+  let rows
+  try {
+    const res = await fetch(CFG.url + '/rest/v1/rpc/skiscanner_all', { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: CFG.key }, body: JSON.stringify({ key }) })
+    if (!res.ok) { let msg = ''; try { msg = (await res.json()).message } catch {} throw new Error(msg || ('HTTP ' + res.status)) }
+    rows = await res.json()
+  } catch (e) { askKey('Could not load the replies: ' + e.message); return }
+  render(rows)
+}
+function askKey(msg) {
+  out.append(el('p', 'err', msg))
+  const i = el('input'); i.placeholder = 'Paste the key'; i.autocomplete = 'off'
+  const b = el('button', null, 'Open')
+  b.onclick = () => { location.hash = 'k=' + encodeURIComponent(i.value.trim()); load(i.value.trim()) }
+  out.append(i, b)
+}
+function render(rows) {
+  const wrap = document.querySelector('.wrap')
+  for (const n of [...wrap.children].slice(1)) n.remove()
+  // latest vote state per (voter, resort)
+  const latest = new Map()
+  for (const r of rows) if (r.kind === 'vote') latest.set(r.voter + '|' + r.resort, r)
+  const byResort = new Map()
+  for (const v of latest.values()) { if (!v.on) continue; const x = byResort.get(v.resort) || { name: v.resort_name || v.resort, who: [] }; x.who.push(v.name || 'someone'); byResort.set(v.resort, x) }
+  const notes = rows.filter((r) => r.kind === 'note'), general = rows.filter((r) => r.kind === 'general')
+  const latestStars = new Map()
+  for (const r of rows) if (r.kind === 'rating') latestStars.set(r.voter + '|' + r.resort, r)
+  const starsBy = new Map()
+  for (const s of latestStars.values()) { const x = starsBy.get(s.resort) || { sum: 0, n: 0, name: s.resort_name || s.resort }; x.sum += s.stars; x.n++; starsBy.set(s.resort, x) }
+  const voters = new Set([...latest.values()].filter((v) => v.on).map((v) => v.voter)).size
+  const stats = el('div', 'stats')
+  for (const [n, label] of [[voters, voters === 1 ? 'person voted' : 'people voted'], [byResort.size, 'resorts chosen'], [notes.length + general.length, 'notes and messages']]) { const s = el('div', 'stat'); s.append(el('b', null, String(n)), el('span', null, label)); stats.append(s) }
+  wrap.append(stats)
+  const picks = el('div', 'card'); picks.append(el('h2', null, 'Top picks'))
+  const sorted = [...byResort.entries()].sort((a, b) => b[1].who.length - a[1].who.length)
+  if (!sorted.length) picks.append(el('p', 'muted', 'No votes yet.'))
+  for (const [id, x] of sorted) {
+    const p = el('div', 'pick')
+    const n = el('div', 'n'); n.append(el('b', null, String(x.who.length)), document.createTextNode(x.name))
+    const st = starsBy.get(id)
+    p.append(n, el('div', 'muted', x.who.join(', ') + (st ? ` · ★ ${(st.sum / st.n).toFixed(1)} from ${st.n}` : '')))
+    for (const note of notes.filter((r) => r.resort === id)) { const m = el('div', 'msg'); m.append(el('span', 'who', note.name || 'someone'), el('span', null, note.text), el('span', 'when', fmt(note.created_at))); p.append(m) }
+    picks.append(p)
+  }
+  for (const [id, st] of starsBy) if (!byResort.has(id)) { const p = el('div', 'pick'); const n = el('div', 'n'); n.append(document.createTextNode(st.name)); p.append(n, el('div', 'muted', `★ ${(st.sum / st.n).toFixed(1)} from ${st.n}, no "I'd go" votes`)); picks.append(p) }
+  const orphanNotes = notes.filter((r) => !byResort.has(r.resort))
+  for (const note of orphanNotes) { const p = el('div', 'pick'); const n = el('div', 'n'); n.append(document.createTextNode(note.resort_name || note.resort)); const m = el('div', 'msg'); m.append(el('span', 'who', note.name || 'someone'), el('span', null, note.text), el('span', 'when', fmt(note.created_at))); p.append(n, m); picks.append(p) }
+  wrap.append(picks)
+  const msgs = el('div', 'card'); msgs.append(el('h2', null, 'Messages'))
+  if (!general.length) msgs.append(el('p', 'muted', 'No messages yet.'))
+  for (const g of [...general].reverse()) { const m = el('div', 'msg'); m.append(el('span', 'who', g.name || 'someone'), el('span', null, g.text), el('span', 'when', fmt(g.created_at) + (trip(g.trip) ? ' · their dates: ' + trip(g.trip) : ''))); msgs.append(m) }
+  wrap.append(msgs)
+  const copy = el('button', null, 'Copy summary')
+  copy.onclick = async () => {
+    const lines = [`SkiScanner replies (${voters} voted)`, ...sorted.map(([, x]) => `${x.who.length} × ${x.name} (${x.who.join(', ')})`), ...general.map((g) => `${g.name || 'someone'}: ${g.text}`)]
+    try { await navigator.clipboard.writeText(lines.join('\n')); copy.textContent = 'Copied' } catch { copy.textContent = 'Copy failed: select the text instead' }
+  }
+  wrap.append(copy, el('p', 'muted', `${rows.length} entries in total. Votes count the latest tap per device and resort; names are what people typed.`))
+}
+load(keyFromHash())
+</script>
+</body>
+</html>
